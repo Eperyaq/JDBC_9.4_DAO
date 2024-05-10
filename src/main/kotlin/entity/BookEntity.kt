@@ -1,4 +1,6 @@
 package com.conexionDataBase.entity
 
-data class BookEntity(val id:Int) {
+import java.util.UUID
+
+data class BookEntity(val id:UUID = UUID.randomUUID(), val name:String) {
 }

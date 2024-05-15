@@ -1,27 +1,26 @@
-package com.conexionDataBase.service
+package com.conexionDataBase.dao
 
-import com.conexionDataBase.dao.BookDao
 import com.conexionDataBase.entity.BookEntity
 import java.util.*
 
-class BookService(val bookDao: BookDao): IBookService {
+class BookXml: IBookDao {
     override fun insert(book: BookEntity): BookEntity? {
-        return bookDao.insert(book)
+        TODO("Not yet implemented")
     }
 
     override fun update(book: BookEntity): BookEntity? {
-        return bookDao.update(book)
+        TODO("Not yet implemented")
     }
 
     override fun deleteById(id: UUID): Boolean {
-        return bookDao.deleteById(id)
+        TODO("Not yet implemented")
     }
 
     override fun selectById(id: UUID): BookEntity? {
-        return bookDao.selectById(id)
+        TODO("Not yet implemented")
     }
 
     override fun selectAll(): List<BookEntity>? {
-        return bookDao.selectAll()
+        TODO("Not yet implemented")
     }
 }

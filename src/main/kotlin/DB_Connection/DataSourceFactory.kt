@@ -2,6 +2,7 @@ package com.conexionDataBase.db_connection
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import org.h2.jdbcx.JdbcDataSource
 import javax.sql.DataSource
 
 object DataSourceFactory {
@@ -24,7 +25,16 @@ object DataSourceFactory {
                 HikariDataSource(config)
             }
 
-            DataSourceType.JDBC -> TODO()
+            DataSourceType.JDBC -> {
+                val jdbcUrl = "jdbc:h2:./default"
+                val username = "user"
+                val password = "user"
+                val dataSource = JdbcDataSource()
+                dataSource.setURL(jdbcUrl)
+                dataSource.user = username
+                dataSource.password = password
+                dataSource
+            }
         }
     }
 }

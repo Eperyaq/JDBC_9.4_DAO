@@ -8,69 +8,70 @@ import com.conexionDataBase.service.BookService
 
 fun main() {
 // Creamos la instancia de la base de datos
-    val dataSource = DataSourceFactory.getDS(DataSourceFactory.DataSourceType.HIKARI)
+    val dataSource = DataSourceFactory.getDS(DataSourceFactory.DataSourceType.JDBC)
 
     val console = Console()
 
     // Creamos la instancia de UserDAO
-    val userDao = BookDao(console, dataSource)
+    val bookDao = BookDao(console, dataSource)
 
     // Creamos la instancia de UserService
-    val userService = BookService(userDao)
+    val bookService = BookService(bookDao)
 
     // Creamos un nuevo usuario
-    val newUser = UserEntity(name = "John Doe", email = "johndoe@example.com")
-    var createdUser = userService.create(newUser)
-    console.showMessage("Created user: $createdUser")
+    val newUser = BookEntity(name = "libro chulo")
+    var createdUser = bookService.insert(newUser)
+    console.showMessage("Created book: $createdUser")
 
     // Obtenemos un usuario por su ID
 
     val foundUser =
         if (createdUser != null){
-            userService.getById(createdUser.id)
+            bookService.selectById(createdUser.id)
         }else{
             null
         }
-    console.showMessage("Found user: $foundUser")
+    console.showMessage("book found: $foundUser")
 
-    // Actualizamos el usuario
-    val updatedUser = foundUser?.copy(name = "Jane Doe")
+    // Actualizamos el libro
+    val updatedUser = foundUser?.copy(name = "LibroBomba")
 
 
     val savedUser =
         if (updatedUser != null){
-            userService.update(updatedUser)
+            bookService.update(updatedUser)
         } else {
             null
         }
     console.showMessage("Updated user: ${savedUser} ")
 
     val otherUser = BookEntity(name = "Pepito grillo")
-    createdUser = userService.create( otherUser)
+    createdUser = bookService.insert( otherUser)
     console.showMessage("Created book: $createdUser")
 
 
     // Obtenemos todos los usuarios
-    var allUsers = userService.getAll()
+    var allUsers = bookService.selectAll()
+
 
     console.show(allUsers)
 
 
     // Eliminamos el usuario
     if (savedUser != null){
-        userService.delete(savedUser.id)
-        console.showMessage("User deleted")
+        bookService.deleteById(savedUser.id)
+        console.showMessage("Book deleted")
     }else{
-        console.showMessage("user not deleted")
+        console.showMessage("Book not deleted")
     }
 
 
     // Obtenemos todos los usuarios
-    allUsers = userService.getAll()
-    console.showMessage("All users: $allUsers")
+    allUsers = bookService.selectAll()
+    console.showMessage("All books: $allUsers")
 
     // Eliminamos el usuario
-    userService.delete(otherUser.id)
-    console.showMessage("User deleted")
+    bookService.deleteById(otherUser.id)
+    console.showMessage("book deleted")
     console.show(allUsers)
 }

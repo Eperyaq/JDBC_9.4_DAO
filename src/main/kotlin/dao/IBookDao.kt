@@ -8,6 +8,6 @@ interface IBookDao {
     fun update(book: BookEntity): BookEntity?
     fun deleteById(id: UUID): Boolean
     fun selectById(id: UUID): BookEntity?
-    fun selectAll(): List<BookEntity?>
+    fun selectAll(): List<BookEntity>?
 
 }
